@@ -1,39 +1,20 @@
-import React, {Component} from 'react';
-import { Redirect } from '../../node_modules/react-router-dom';
+import React from 'react';
 
-class Logout extends Component {
-  constructor(props) {
-    super(props);
-    const isAuth = localStorage.getItem('isAuth') === 'true'
-    this.state = {
-      isAuth
-    };
-    this.LogoutHandler = this.LogoutHandler.bind(this);
-  }
+const Logout = (props) => {
+  const isAuth = props.isAuth;
 
-  LogoutHandler() {
-    localStorage.setItem('isAuth', 'false');
-    this.setState({
-      isAuth: !this.state.isAuth
-    });
-  }
-
-  render() {
-    const isAuth = this.state.isAuth;
-
-    if (isAuth) {
-      return (
-        <button onClick={this.LogoutHandler}>Logout</button>
-      )
-    }
+  if (isAuth) {
     return (
-      <div>
-        <p>You are not Logged in</p>
-        <Redirect to ='/' />
-      </div>
-      
-    );
+      <button onClick={props.logoutHandler}>Logout</button>
+    )
   }
+
+  return (
+    <div>
+      <p>You are not Logged in</p>
+    </div>  
+  );
+
 }
 
 export default Logout;

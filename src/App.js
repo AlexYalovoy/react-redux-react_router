@@ -6,13 +6,17 @@ import News from './Components/News';
 import ProfileContainer from './Containers/profileContainer';
 import PrivateRoute from './Containers/privateContainer';
 import LoginContainer from './Containers/LoginContainer';
-import Logout from './Components/Logout';
+import LogoutContainer from './Containers/LogoutContainer';
 
 const history = createBrowserHistory();
 
 class App extends Component {
-  // Сделана авторизация и переход к профилю, просмотрена реализация примера, переделать авторизацию с диспатчами
-  // TODO: проверку заполнения формы входа, сделать кнопку выхода из профиля, дизайн страницы
+  // Сделано: авторизация и переход к профилю, 
+  //          просмотрена реализация примера, 
+  //          переделать авторизацию с диспатчами, 
+  //          проверку заполнения формы входа,
+  //          сделать кнопку выхода из профиля
+  // TODO:    дизайн страницы
   render() {
     return (
       <Router history={history}>
@@ -21,7 +25,7 @@ class App extends Component {
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/news'>News</Link></li>
             <li><Link to='/profile'>Profile</Link></li>
-            <li><Logout/></li>
+            <li><LogoutContainer/></li>
           </ul>
 
           <hr/>

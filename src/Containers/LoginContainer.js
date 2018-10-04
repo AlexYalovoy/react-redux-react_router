@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import {actionGenerator, LOGIN, LOGIN_FAILURE} from '../Actions'
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import Login from '../Components/Login';
 import { Redirect } from '../../node_modules/react-router-dom';
 import formValidation from '../helpers/FormValidation';
