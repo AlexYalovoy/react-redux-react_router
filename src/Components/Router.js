@@ -1,39 +1,41 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Link} from 'react-router-dom';
+import {Switch, Route, Link, Router} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Home';
 import News from './News';
-import Profile from './Profile';
-import PrivateRoute from './PrivateRoute';
+import ProfileContainer from '../Containers/profileContainer';
+import PrivateRoute from '../Containers/privateContainer';
 import Login from './login';
+import Logout from './Logout';
 
-const history = createBrowserHistory;
+const history = createBrowserHistory();
 
-class Router extends Component {
-  // Реализована проверка на установленный ключ isAuth
-  // TODO: Сделать авторизацию => переход к странице профиля
-  // И выход из профиля
-  // + почитать Api react-router
+class Routerr extends Component {
+  // Сделана авторизация и переход к профилю, просмотрена реализация примера
+  // TODO: сделать кнопку выхода из профиля, проверку заполнения формы входа, дизайн страницы
   render() {
     return (
-      <BrowserRouter history={history}>
+      <Router history={history}>
         <div>
           <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/news'>News</Link></li>
             <li><Link to='/profile'>Profile</Link></li>
+            <li><Logout/></li>
           </ul>
 
           <hr/>
           
-          <Route exact path='/' component={Home}/>
-          <Route exact path='/news' component={News}/>
-          <Route path="/login" component={Login} />
-          <PrivateRoute path="/profile" component={Profile} />
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/news' component={News}/>
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/profile" component={ProfileContainer} />
+          </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
-export default Router;
+export default Routerr;

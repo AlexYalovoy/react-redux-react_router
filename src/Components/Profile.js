@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Profile = () => {
+const Profile = (props) => {
   return (
     <div>
       <h2>Profile</h2>
+      <p>Your name: {props.user.name}</p>
     </div>
   )
 };
