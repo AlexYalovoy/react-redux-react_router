@@ -15,13 +15,6 @@ export const actionGenerator = (type, params) => {
       return {
         type: LOGOUT
       };
-    case LOGIN_FAILURE:
-      return {
-        type: LOGIN_FAILURE,
-        payload: {
-          errMsg: params.errMsg
-        }
-      };
     default:
       return {};
   }

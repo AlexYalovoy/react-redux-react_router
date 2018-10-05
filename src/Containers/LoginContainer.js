@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {actionGenerator, LOGIN, LOGIN_FAILURE} from '../Actions'
+import {actionGenerator, LOGIN} from '../Actions'
 import React, {Component} from 'react';
 import Login from '../Components/Login';
 import { Redirect } from '../../node_modules/react-router-dom';
@@ -9,6 +9,10 @@ class LoginContainer extends Component {
   constructor(props) {
     super(props);
     this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  state = {
+    errMsg: ''
   }
 
   users = [
@@ -24,7 +28,9 @@ class LoginContainer extends Component {
     const password = document.getElementById('password').value;
 
     if ( !formValidation(login, password, this.users) ) { // Если не найдено пользователя с такими данными 
-      this.props.login(LOGIN_FAILURE, {errMsg: 'Проверьте правильность ввода логина или пароля'}); 
+      this.setState({
+        errMsg: 'Проверьте правильность ввода логина или пароля'
+      }); 
       return;
     }
     
@@ -39,7 +45,7 @@ class LoginContainer extends Component {
       )
     }
     
-    const {errMsg} = this.props;
+    const {errMsg} = this.state;
     return (
       <div>
         <Login errMsg = {errMsg} submitHandler = {this.submitHandler} />
@@ -50,8 +56,7 @@ class LoginContainer extends Component {
 
 const mapStateToPtops = (state) => {
   return {
-    user: state.auth.user,
-    errMsg: state.auth.errMsg
+    user: state.auth.user
   }
 }
 

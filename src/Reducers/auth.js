@@ -1,19 +1,16 @@
-import {LOGIN, LOGOUT, LOGIN_FAILURE} from '../Actions';
+import {LOGIN, LOGOUT} from '../Actions';
 
 const user = JSON.parse( localStorage.getItem('user') );
 const initialState = {
-  user,
-  errMsg: ''
+  user
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return {...state, user: action.payload.user, errMsg: ''};
-    case LOGIN_FAILURE:
-      return { user: null, errMsg: action.payload.errMsg };
+      return {...state, user: action.payload.user};
     case LOGOUT:
-      return { user: null, errMsg: '' };
+      return {...state, user: null };
     default:
       return state;
   }
