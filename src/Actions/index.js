@@ -8,7 +8,7 @@ export const actionGenerator = (type, params) => {
       return {
         type: LOGIN, 
         payload: {
-          user: params.user
+          user: params
         }
       } ;
     case LOGOUT:

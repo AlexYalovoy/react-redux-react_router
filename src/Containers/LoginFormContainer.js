@@ -8,34 +8,57 @@ import formValidation from '../helpers/FormValidation';
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
-    this.submitHandler = this.submitHandler.bind(this);
   }
 
   state = {
-    errMsg: ''
+    errMsg: '',
+    email: '',
+    password: ''
   }
 
-  users = [
-    {
-      login: 'admin',
-      password: '12345'
-    }
-  ];
+  messages = {
+    'wrong_email_or_password': 'Email или пароль введены неверно, попробуйте еще раз!',
+    'server_not_enable': 'Сервер не доступен'
+  }
 
-  submitHandler(event) {
-    event.preventDefault();
-    const login = document.getElementById('login').value;
-    const password = document.getElementById('password').value;
+  changeHandler = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    this.setState({
+      [name]: value
+    });
+  }
 
-    if ( !formValidation(login, password, this.users) ) { // Если не найдено пользователя с такими данными 
-      this.setState({
-        errMsg: 'Проверьте правильность ввода логина или пароля'
-      }); 
-      return;
-    }
+  submitHandler = (e) => {
+    e.preventDefault();
+    const {email, password} = this.state;
+    const body = JSON.stringify({email, password});
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('post', 'https://mysterious-reef-29460.herokuapp.com/api/v1/validate')
+    xhr.setRequestHeader('content-type', 'application/json');
     
-    localStorage.setItem("user", JSON.stringify({name: login}));
-    this.props.login(LOGIN, {user: {name: login}});
+    xhr.onload = () => {
+      const response = JSON.parse(xhr.response);
+      if (response.status == 'ok') {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        this.props.login(response.data);
+      }
+      if (response.message === 'wrong_email_or_password') { // В случае ошибки
+        this.setState({ 
+          errMsg: this.messages['wrong_email_or_password'],
+          password: ''
+        }); 
+      }
+    }
+
+    xhr.onerror = () => {
+      this.setState({ 
+        errMsg: this.messages['server_not_enable']
+      });
+    }
+
+    xhr.send(body);
   }
 
   render() {
@@ -45,10 +68,16 @@ class LoginContainer extends Component {
       )
     }
     
-    const {errMsg} = this.state;
+    const {errMsg, email, password} = this.state;
     return (
       <div>
-        <LoginForm errMsg = {errMsg} submitHandler = {this.submitHandler} />
+        <LoginForm 
+          errMsg = {errMsg} 
+          email = {email}
+          password = {password}
+          changeHandler = {this.changeHandler} 
+          submitHandler = {this.submitHandler} 
+        />
       </div>
     )
   }
@@ -62,7 +91,7 @@ const mapStateToPtops = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (type, params) => dispatch( actionGenerator(type, params) )
+    login: (params) => dispatch( actionGenerator(LOGIN, params) ) 
   }
 }
 

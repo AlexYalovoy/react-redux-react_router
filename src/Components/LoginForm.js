@@ -1,41 +1,24 @@
 import React from 'react';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: ''
-    }
-  }
-  changeHandler = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    this.setState({
-      [name]: value
-    });
-  }
-
-
   render() {
-    const emailValue = this.state.email;
-    const passwordValue = this.state.password;
+    
     return (
-      <form>
+      <form method='post' encType='application/json' action='https://mysterious-reef-29460.herokuapp.com/api/v1/validate'>
         {this.props.errMsg && <p>{this.props.errMsg}</p>}
         <label htmlFor='email'>Email:</label>
         <input 
           id = 'email' name='email' 
           type='text' placeholder='Type your emai'
-          onChange = {this.changeHandler}
-          value = {emailValue}
+          onChange = {this.props.changeHandler}
+          value = {this.props.email}
         />
         <label htmlFor='password'>Password:</label>
         <input 
           id = 'password' name='password' 
           type='password' placeholder='Type your password'
-          onChange = {this.changeHandler}
-          value = {passwordValue}
+          onChange = {this.props.changeHandler}
+          value = {this.props.password}
         />
         <input 
           type='submit' value='Login' 
