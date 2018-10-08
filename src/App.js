@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import {Switch, Route, Link, Router} from 'react-router-dom';
+import {Switch, Route, Router} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Components/Home';
 import News from './Components/News';
 import ProfileContainer from './Containers/profileContainer';
 import PrivateRoute from './Containers/privateContainer';
-import LoginContainer from './Containers/LoginContainer';
-import LogoutContainer from './Containers/LogoutContainer';
+import LoginFormContainer from './Containers/LoginFormContainer';
+import './Css/app.css';
+import ButtonList from './Components/ButtonList';
 
 const history = createBrowserHistory();
 
@@ -22,19 +23,12 @@ class App extends Component {
     return (
       <Router history={history}>
         <div>
-          <ul>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/news'>News</Link></li>
-            <li><Link to='/profile'>Profile</Link></li>
-            <li><LogoutContainer/></li>
-          </ul>
-
+          <ButtonList />
           <hr/>
-          
           <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/news' component={News}/>
-            <Route path="/login" component={LoginContainer} />
+            <Route path="/login" component={LoginFormContainer} />
             <PrivateRoute path="/profile" component={ProfileContainer} />
           </Switch>
         </div>

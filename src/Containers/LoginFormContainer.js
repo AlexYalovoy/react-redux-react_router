@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import {actionGenerator, LOGIN} from '../Actions'
 import React, {Component} from 'react';
-import Login from '../Components/Login';
+import LoginForm from '../Components/LoginForm';
 import { Redirect } from '../../node_modules/react-router-dom';
 import formValidation from '../helpers/FormValidation';
 
@@ -48,7 +48,7 @@ class LoginContainer extends Component {
     const {errMsg} = this.state;
     return (
       <div>
-        <Login errMsg = {errMsg} submitHandler = {this.submitHandler} />
+        <LoginForm errMsg = {errMsg} submitHandler = {this.submitHandler} />
       </div>
     )
   }
