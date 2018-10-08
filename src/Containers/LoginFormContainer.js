@@ -3,13 +3,8 @@ import {actionGenerator, LOGIN} from '../Actions'
 import React, {Component} from 'react';
 import LoginForm from '../Components/LoginForm';
 import { Redirect } from '../../node_modules/react-router-dom';
-import formValidation from '../helpers/FormValidation';
 
 class LoginContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     errMsg: '',
     email: '',
@@ -40,11 +35,15 @@ class LoginContainer extends Component {
     
     xhr.onload = () => {
       const response = JSON.parse(xhr.response);
-      if (response.status == 'ok') {
+
+      if (response.status === 'ok') {
+        console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
+        console.log("user = " + JSON.stringify( JSON.parse(localStorage.getItem("user"))) );
         this.props.login(response.data);
       }
-      if (response.message === 'wrong_email_or_password') { // В случае ошибки
+
+      if (response.message === 'wrong_email_or_password') { // В случае ошибки логина
         this.setState({ 
           errMsg: this.messages['wrong_email_or_password'],
           password: ''

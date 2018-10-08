@@ -1,6 +1,6 @@
 import {LOGIN, LOGOUT} from '../Actions';
 
-const user = JSON.parse( localStorage.getItem('user') );
+const user = JSON.parse( localStorage.getItem("user") );
 const initialState = {
   user
 };

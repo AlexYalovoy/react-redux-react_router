@@ -4,9 +4,6 @@ import React, {Component} from 'react';
 import LoginLogout from '../Components/LoginLogout';
 
 class LogoutContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <LoginLogout logoutHandler = {this.props.logout} isAuth = {this.props.isAuth}/>
