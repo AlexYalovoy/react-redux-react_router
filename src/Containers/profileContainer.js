@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from '../Components/Profile';
 import {connect} from 'react-redux';
-import {GET_PROFILE, actionGenerator} from '../Actions';
+import {GET_PROFILE, PROFILE_ERR, actionGenerator} from '../Actions';
 import isEmpty from '../helpers/isEmpty';
 
 const ProfileContainer = (props) =>  {
@@ -15,7 +15,18 @@ const ProfileContainer = (props) =>  {
     xhr.open('get', url + id);
     xhr.onload = () => {
       const response = JSON.parse(xhr.response) ;
-      props.getProfile(response.data); // Занести ее в стор
+
+      switch (response.status) {
+        case 'ok' :
+          props.getProfile(response.data); // Занести ее в стор
+          break;
+        case 'err':
+          props.profileErr();
+          break;
+        default :
+          props.profileErr();
+          break;
+      }
     }
     xhr.send();
   }
@@ -34,7 +45,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProfile: (params) => dispatch( actionGenerator(GET_PROFILE, params) )
+    getProfile: (params) => dispatch( actionGenerator(GET_PROFILE, params) ),
+    profileErr: () => dispatch( actionGenerator(PROFILE_ERR) )
   }
 }
 

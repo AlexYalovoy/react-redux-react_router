@@ -4,9 +4,18 @@ import '../Css/profile.css';
 
 
 const Profile = (props) => {
+  const profile = props.profile;
   let city;
   let languages;
   let socials;
+
+  if (profile.err) {
+    return (
+      <div>
+        <h2>{profile.err}</h2>
+      </div>
+    );
+  }
 
   function parseInfo(info) {
     const city = info.city;
@@ -26,9 +35,9 @@ const Profile = (props) => {
 
     return {city, languages, socials}
   }
-
-  if ( !isEmpty(props.profile) ) {
-    const result = parseInfo(props.profile);
+  // Если в пропсах уже пришла User info делаем парсинг
+  if ( !isEmpty(profile) ) {
+    const result = parseInfo(profile);
 
     city = result.city;
     languages = result.languages;

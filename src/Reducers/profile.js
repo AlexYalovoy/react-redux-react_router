@@ -1,4 +1,4 @@
-import {GET_PROFILE} from '../Actions';
+import {GET_PROFILE, PROFILE_ERR} from '../Actions';
 
 const initialState = {
   
@@ -7,7 +7,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PROFILE:
-      return { ...state, ...action.payload.profile }
+      return { ...action.payload.profile }
+    case PROFILE_ERR:
+      return { err: 'User not found' }
     default:
       return state;
   }
