@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   render() {
@@ -27,6 +28,14 @@ class Login extends React.Component {
       </form>
     )
   }
+}
+
+Login.propTypes = {
+  errMsg: PropTypes.string,
+  email: PropTypes.string,
+  password: PropTypes.string,
+  changeHandler: PropTypes.func,
+  submitHandler: PropTypes.func
 }
 
 export default Login;

@@ -1,6 +1,7 @@
 import React from 'react';
 import isEmpty from '../helpers/isEmpty';
 import '../Css/profile.css';
+import PropTypes from 'prop-types';
 
 
 const Profile = (props) => {
@@ -59,5 +60,9 @@ const Profile = (props) => {
     </div>
   )
 };
+
+Profile.propTypes = {
+  profile: PropTypes.object
+}
 
 export default Profile;

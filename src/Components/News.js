@@ -1,5 +1,6 @@
 import React from 'react';
 import isEmpty from '../helpers/isEmpty';
+import PropTypes from 'prop-types';
 
 const News = (props) => {
   let newsObj = props.news;
@@ -25,5 +26,9 @@ const News = (props) => {
     </div>
   )
 };
+
+News.propTypes = {
+  news: PropTypes.object
+}
 
 export default News;

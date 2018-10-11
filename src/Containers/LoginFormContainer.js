@@ -3,6 +3,7 @@ import {actionGenerator, LOGIN} from '../Actions'
 import React, {Component} from 'react';
 import LoginForm from '../Components/LoginForm';
 import { Redirect } from '../../node_modules/react-router-dom';
+import PropTypes from 'prop-types';
 
 class LoginContainer extends Component {
   state = {
@@ -37,9 +38,7 @@ class LoginContainer extends Component {
       const response = JSON.parse(xhr.response);
 
       if (response.status === 'ok') {
-        console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
-        console.log("user = " + JSON.stringify( JSON.parse(localStorage.getItem("user"))) );
         this.props.login(response.data);
       }
 
@@ -93,6 +92,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (params) => dispatch( actionGenerator(LOGIN, params) ) 
   }
+}
+
+LoginContainer.propTypes = {
+  location: PropTypes.object,
+  user: PropTypes.object,
+  login: PropTypes.func
 }
 
 export default connect(mapStateToPtops, mapDispatchToProps)(LoginContainer)
