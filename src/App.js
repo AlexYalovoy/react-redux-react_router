@@ -6,6 +6,7 @@ import NewsContainer from './Containers/NewsContainer';
 import ProfileContainer from './Containers/profileContainer';
 import PrivateRoute from './Containers/privateContainer';
 import LoginFormContainer from './Containers/LoginFormContainer';
+import NotFoud from './Components/NotFound';
 import './Css/app.css';
 import ButtonList from './Components/ButtonList';
 
@@ -13,8 +14,7 @@ const history = createBrowserHistory();
 
 class App extends Component {
 
-  // TODO:    news,
-  //          дизайн страницы, propTypes, 404 page, работа с дом в реакте?, bind не нужен?, использовать middleware?
+  // TODO:    дизайн страницы, propTypes, 404 page, работа с дом в реакте?, bind не нужен?, использовать middleware?
   render() {
     return (
       <Router history={history}>
@@ -26,6 +26,7 @@ class App extends Component {
             <Route path='/news' component={NewsContainer}/>
             <Route path="/login" component={LoginFormContainer} />
             <PrivateRoute path="/profile" component={ProfileContainer} />
+            <Route component={NotFoud} />
           </Switch>
         </div>
       </Router>
