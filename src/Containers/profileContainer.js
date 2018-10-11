@@ -6,14 +6,16 @@ import isEmpty from '../helpers/isEmpty';
 
 const ProfileContainer = (props) =>  {
   const {profile} = props;
-  const id = props.id;
 
-  if ( isEmpty(profile) ) {
+  if ( isEmpty(profile) ) { // Если информации в профиле нет
     const xhr = new XMLHttpRequest();
-    xhr.open('get', `https://mysterious-reef-29460.herokuapp.com/api/v1/user-info/${id}`);
+    const url = 'https://mysterious-reef-29460.herokuapp.com/api/v1/user-info/';
+    const id = props.id;
+
+    xhr.open('get', url + id);
     xhr.onload = () => {
-      const user = JSON.parse(xhr.response) ;
-      props.getProfile(user.data);
+      const response = JSON.parse(xhr.response) ;
+      props.getProfile(response.data); // Занести ее в стор
     }
     xhr.send();
   }

@@ -1,0 +1,10 @@
+#links {
+  list-style: none;
+}
+#links li {
+  display: inline;
+}
+
+img {
+  width: 16%;
+}
