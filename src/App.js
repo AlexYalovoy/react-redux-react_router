@@ -13,8 +13,7 @@ const history = createBrowserHistory();
 
 class App extends Component {
 
-  // TODO:    запрос данных profile: обработать исключения,  
-  //          news, возврат к странице после логина,
+  // TODO:    news,
   //          дизайн страницы, propTypes, 404 page, работа с дом в реакте?, bind не нужен?, использовать middleware?
   render() {
     return (

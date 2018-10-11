@@ -61,9 +61,10 @@ class LoginContainer extends Component {
   }
 
   render() {
+    const {from} = this.props.location.state || {from: { pathname: '/' }}
     if (this.props.user) {
       return (
-        <Redirect to='/profile' />
+        <Redirect to={from} />
       )
     }
     
