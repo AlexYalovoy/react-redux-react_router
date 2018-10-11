@@ -3,6 +3,7 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const PROFILE_ERR = 'PROFILE_ERR';
+export const SET_NEWS = 'SET_NEWS';
 
 export const actionGenerator = (type, params) => {
   switch (type) {
@@ -27,6 +28,13 @@ export const actionGenerator = (type, params) => {
     case PROFILE_ERR:
       return {
         type: PROFILE_ERR
+      }
+    case SET_NEWS:
+      return {
+        type: SET_NEWS,
+        payload: {
+          news: params
+        }
       }
     default:
       return {};

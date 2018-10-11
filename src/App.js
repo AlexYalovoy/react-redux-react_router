@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Switch, Route, Router} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Components/Home';
-import News from './Components/News';
+import NewsContainer from './Containers/NewsContainer';
 import ProfileContainer from './Containers/profileContainer';
 import PrivateRoute from './Containers/privateContainer';
 import LoginFormContainer from './Containers/LoginFormContainer';
@@ -23,7 +23,7 @@ class App extends Component {
           <hr/>
           <Switch>
             <Route exact path='/' component={Home}/>
-            <Route path='/news' component={News}/>
+            <Route path='/news' component={NewsContainer}/>
             <Route path="/login" component={LoginFormContainer} />
             <PrivateRoute path="/profile" component={ProfileContainer} />
           </Switch>
