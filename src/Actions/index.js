@@ -30,6 +30,7 @@ export const actionGenerator = (type, params) => {
         type: PROFILE_ERR
       }
     case SET_NEWS:
+    
       return {
         type: SET_NEWS,
         payload: {
