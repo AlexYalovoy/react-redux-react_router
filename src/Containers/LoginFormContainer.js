@@ -18,8 +18,8 @@ class LoginContainer extends Component {
   }
 
   changeHandler = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
+    const value = e.currentTarget.value;
+    const name = e.currentTarget.name;
     this.setState({
       [name]: value
     });
