@@ -7,7 +7,7 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_NEWS:
-      return { ...action.payload.news }
+      return { ...action.payload }
     default:
       return state;
   }

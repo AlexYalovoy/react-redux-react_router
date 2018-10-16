@@ -41,3 +41,43 @@ export const actionGenerator = (type, params) => {
       return {};
   }
 }
+
+export const setNews = (dispatch) => {
+  return () => {
+    //dispatch(requestPosts(subreddit))
+
+    const request = new Promise( (resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      const url = 'https://mysterious-reef-29460.herokuapp.com/api/v1/news';
+
+      xhr.open('get', url);
+
+      xhr.onreadystatechange = function() {
+        if (this.readyState === 4) {
+          const response = JSON.parse( this.response );
+          switch (response.status) {
+            case 'ok':
+              resolve(response);
+            break;
+            default:
+              reject();
+            break;
+          }
+        }
+      }
+      
+      xhr.onerror = reject;
+      xhr.send();
+    });
+
+    request.then( response => 
+              dispatch({
+                type: SET_NEWS,
+                payload: response.data
+              })
+            )
+            .catch( err => console.log(err) );
+
+    
+  }
+}
