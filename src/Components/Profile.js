@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 
 
 const Profile = (props) => {
-  const profile = props.profile;
-  let city;
-  let languages;
-  let socials;
+  let profile = props.profile;
 
   if (profile.err) {
     return (
@@ -20,11 +17,8 @@ const Profile = (props) => {
 
   function parseInfo(info) {
     const city = info.city;
+    let socials = info.socials;
     const languages = info.languages.map( lang => <li key={lang}>{lang}</li> );
-
-    const webIkon = info.social.filter( e => e.label === 'web' ? true : false );
-    const restIkons = info.social.filter( e => e.label !== 'web' ? true : false );
-    let socials = [...webIkon, ...restIkons];
 
     socials = socials.map( soc => (
       <li key={soc.label}>
@@ -38,12 +32,12 @@ const Profile = (props) => {
   }
   // Если в пропсах уже пришла User info делаем парсинг
   if ( !isEmpty(profile) ) {
-    const result = parseInfo(profile);
-
-    city = result.city;
-    languages = result.languages;
-    socials = result.socials;
+    profile = parseInfo(profile);
   }
+
+  const city = profile && profile.city;
+  const languages = profile && profile.languages;
+  const socials = profile && profile.socials;
   
   return (
     <div>

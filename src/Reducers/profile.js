@@ -1,4 +1,4 @@
-import {GET_PROFILE, PROFILE_ERR} from '../Actions';
+import {SET_PROFILE, PROFILE_ERR} from '../Actions';
 
 const initialState = {
   
@@ -6,8 +6,18 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PROFILE:
-      return { ...action.payload.profile }
+    case SET_PROFILE:
+      const info = action.payload;
+      const city = info.city;
+      const languages = info.languages;
+    
+      const webIkon = info.social.filter( e => e.label === 'web' ? true : false );
+      const restIkons = info.social.filter( e => e.label !== 'web' ? true : false );
+
+      const socials = [...webIkon, ...restIkons];
+      const profile = {city, languages, socials};
+
+      return { ...profile }
     case PROFILE_ERR:
       return { err: 'User not found' }
     default:
