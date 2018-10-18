@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route, Router} from 'react-router-dom';
+import {Switch, Route, Router, HashRouter} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Components/Home';
 import NewsContainer from './Containers/NewsContainer';
@@ -18,11 +18,11 @@ class App extends Component {
   //          отправка пустой формы не разрешается + более жесткая валидация, 
   //          убрать из компонента изменение порядка картинок в редьюсер, 
   //          екшен login_request с блокировкой сабмита + прелоадер(компонентом), redux-thunk - для чего он нужен?
-  //          выделить новость в отдельный компонент, сделать превью в github page
+  //          выделить новость в отдельный компонент
   //          выносить url в отдельный файл с константами
   render() {
     return (
-      <Router history={history}>
+      <HashRouter history={history}>
         <div>
           <ButtonList />
           <hr/>
@@ -34,7 +34,7 @@ class App extends Component {
             <Route component={NotFoud} />
           </Switch>
         </div>
-      </Router>
+      </HashRouter>
     );
   }
 }
