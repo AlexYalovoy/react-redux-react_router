@@ -3,27 +3,31 @@ import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   render() {
+    const {errMsg, email, password, changeHandler, login} = this.props;
+    const state = {email, password}
     
     return (
       <form method='post' encType='application/json' action='https://mysterious-reef-29460.herokuapp.com/api/v1/validate'>
-        {this.props.errMsg && <p>{this.props.errMsg}</p>}
+        {errMsg && <p>{errMsg}</p>}
         <label htmlFor='email'>Email:</label>
         <input 
           id = 'email' name='email' 
-          type='text' placeholder='Type your emai'
-          onChange = {this.props.changeHandler}
-          value = {this.props.email}
+          type='text' placeholder='Type your email'
+          autoComplete="username email"
+          onChange = {changeHandler}
+          value = {email}
         />
         <label htmlFor='password'>Password:</label>
         <input 
           id = 'password' name='password' 
           type='password' placeholder='Type your password'
-          onChange = {this.props.changeHandler}
-          value = {this.props.password}
+          autoComplete="current-password"
+          onChange = {changeHandler}
+          value = {password}
         />
         <input 
           type='submit' value='Login' 
-          onClick = {this.props.submitHandler}
+          onClick = { (e) => login(e, state) }
         />
       </form>
     )

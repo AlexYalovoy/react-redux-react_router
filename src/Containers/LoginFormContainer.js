@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {actionGenerator, LOGIN} from '../Actions'
+import {login, actionGenerator, CLEAR_ERR} from '../Actions'
 import React, {Component} from 'react';
 import LoginForm from '../Components/LoginForm';
 import { Redirect } from '../../node_modules/react-router-dom';
@@ -7,56 +7,30 @@ import PropTypes from 'prop-types';
 
 class LoginContainer extends Component {
   state = {
-    errMsg: '',
     email: '',
     password: ''
   }
 
-  messages = {
-    'wrong_email_or_password': 'Email или пароль введены неверно, попробуйте еще раз!',
-    'server_not_enable': 'Сервер не доступен'
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.errMsg && !this.props.errMsg) { // Стирание пароля после отображения ошибки
+      this.setState({
+        password: ''
+      })
+      return true;
+    }
+
+    // Стирание ошибки после начала печати
+    if (this.props.errMsg && ( (nextState.password !== this.state.password) && nextState.password || nextState.email !== this.state.email))
+      this.props.clearErr();
+    return true;
   }
 
   changeHandler = (e) => {
-    const value = e.currentTarget.value;
     const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
     this.setState({
       [name]: value
-    });
-  }
-
-  submitHandler = (e) => {
-    e.preventDefault();
-    const {email, password} = this.state;
-    const body = JSON.stringify({email, password});
-
-    const xhr = new XMLHttpRequest();
-    xhr.open('post', 'https://mysterious-reef-29460.herokuapp.com/api/v1/validate')
-    xhr.setRequestHeader('content-type', 'application/json');
-    
-    xhr.onload = () => {
-      const response = JSON.parse(xhr.response);
-
-      if (response.status === 'ok') {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        this.props.login(response.data);
-      }
-
-      if (response.message === 'wrong_email_or_password') { // В случае ошибки логина
-        this.setState({ 
-          errMsg: this.messages['wrong_email_or_password'],
-          password: ''
-        }); 
-      }
-    }
-
-    xhr.onerror = () => {
-      this.setState({ 
-        errMsg: this.messages['server_not_enable']
-      });
-    }
-
-    xhr.send(body);
+    })
   }
 
   render() {
@@ -66,16 +40,18 @@ class LoginContainer extends Component {
         <Redirect to={from} />
       )
     }
-    
-    const {errMsg, email, password} = this.state;
+    const {email, password} = this.state;
+    const {errMsg, login } = this.props;
+    const changeHandler = this.changeHandler;
+
     return (
       <div>
         <LoginForm 
           errMsg = {errMsg} 
           email = {email}
           password = {password}
-          changeHandler = {this.changeHandler} 
-          submitHandler = {this.submitHandler} 
+          changeHandler = {changeHandler} 
+          login = {login}
         />
       </div>
     )
@@ -84,20 +60,24 @@ class LoginContainer extends Component {
 
 const mapStateToPtops = (state) => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    errMsg: state.auth.errMsg
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (params) => dispatch( actionGenerator(LOGIN, params) ) 
+    login: (e, state) => login(dispatch)(e, state),
+    clearErr: () => dispatch( actionGenerator(CLEAR_ERR) )
   }
 }
 
 LoginContainer.propTypes = {
   location: PropTypes.object,
   user: PropTypes.object,
-  login: PropTypes.func
+  errMsg: PropTypes.string,
+  login: PropTypes.func,
+  clearErr: PropTypes.func
 }
 
 export default connect(mapStateToPtops, mapDispatchToProps)(LoginContainer)

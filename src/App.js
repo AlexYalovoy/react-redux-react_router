@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route, Router, HashRouter} from 'react-router-dom';
+import {Switch, Route, HashRouter} from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Components/Home';
 import NewsContainer from './Containers/NewsContainer';
