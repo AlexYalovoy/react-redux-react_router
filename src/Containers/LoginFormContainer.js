@@ -20,9 +20,13 @@ class LoginContainer extends Component {
     }
 
     // Стирание ошибки после начала печати
-    if (this.props.errMsg && ( (nextState.password !== this.state.password) && nextState.password || nextState.email !== this.state.email))
+    if ( this.isStartTyping(nextState) )
       this.props.clearErr();
     return true;
+  }
+
+  isStartTyping = (nextState) => {
+    return this.props.errMsg && ( (nextState.password !== this.state.password) && nextState.password || nextState.email !== this.state.email)
   }
 
   changeHandler = (e) => {
