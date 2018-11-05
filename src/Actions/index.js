@@ -22,8 +22,7 @@ export const actionGenerator = (type, params) => {
 
 export const setNews = (dispatch) => {
   return () => {
-    //dispatch(requestSend)
-
+    
     const request = new Promise( (resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const url = 'https://mysterious-reef-29460.herokuapp.com/api/v1/news';
@@ -53,9 +52,7 @@ export const setNews = (dispatch) => {
                 type: SET_NEWS,
                 payload: response.data
               })
-            )/*
-            .then(dispatch(responceReceiver))
-            */
+            )
             .catch( err => console.log(err) );
 
   }
@@ -63,8 +60,7 @@ export const setNews = (dispatch) => {
 
 export const setProfile = (dispatch) => {
   return (id) => {
-    //dispatch(requestSend)
-
+    
     const request = new Promise( (resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const url = 'https://mysterious-reef-29460.herokuapp.com/api/v1/user-info/';
@@ -94,9 +90,7 @@ export const setProfile = (dispatch) => {
                 type: SET_PROFILE,
                 payload: response.data
               })
-            )/*
-            .then(dispatch(responceReceiver))
-            */
+            )
             .catch( err => console.log(err) );
 
   }
@@ -105,8 +99,7 @@ export const setProfile = (dispatch) => {
 export const login = (dispatch) => {
   return (e, credentials) => {
     e.preventDefault();
-    //dispatch(requestSend)
-    
+        
     const request = new Promise( (resolve, reject) => {
       const xhr = new XMLHttpRequest();
       const url = 'https://mysterious-reef-29460.herokuapp.com/api/v1/validate';
@@ -149,9 +142,7 @@ export const login = (dispatch) => {
                   payload: response.data
                 })
               }
-            )/*
-            .then(dispatch(responceReceiver))
-            */
+            )
             .catch( response => 
                     dispatch({
                       type: LOGIN_ERR,

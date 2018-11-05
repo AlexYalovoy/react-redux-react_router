@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Login extends React.Component {
-  render() {
-    const {errMsg, email, password, changeHandler, login} = this.props;
+const Login = (props) => {
+    const {errMsg, email, password, changeHandler, login} = props;
     const state = {email, password}
     
     return (
@@ -30,8 +29,8 @@ class Login extends React.Component {
           onClick = { (e) => login(e, state) }
         />
       </form>
-    )
-  }
+    );
+  
 }
 
 Login.propTypes = {
