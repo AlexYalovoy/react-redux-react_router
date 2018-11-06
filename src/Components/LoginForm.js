@@ -35,9 +35,9 @@ const Login = (props) => {
 
 Login.propTypes = {
   errMsg: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  changeHandler: PropTypes.func,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  changeHandler: PropTypes.func.isRequired,
   submitHandler: PropTypes.func
 }
 

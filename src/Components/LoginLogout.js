@@ -24,7 +24,7 @@ const LoginLogout = (props) => {
 }
 
 LoginLogout.propTypes = {
-  logoutHandler: PropTypes.func,
+  logoutHandler: PropTypes.func.isRequired,
   isAuth: PropTypes.object
 }
 

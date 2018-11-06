@@ -28,7 +28,7 @@ const News = (props) => {
 };
 
 News.propTypes = {
-  news: PropTypes.object
+  news: PropTypes.object.isRequired
 }
 
 export default News;

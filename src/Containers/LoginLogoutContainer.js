@@ -2,8 +2,9 @@ import {LOGOUT, actionGenerator} from '../Actions';
 import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import LoginLogout from '../Components/LoginLogout';
+import PropTypes from 'prop-types';
 
-class LogoutContainer extends Component {
+class LoginLogoutContainer extends Component {
   render() {
     return (
       <LoginLogout logoutHandler = {this.props.logout} isAuth = {this.props.isAuth}/>
@@ -26,4 +27,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogoutContainer)
+LoginLogoutContainer.propTypes = {
+  isAuth: PropTypes.object,
+  logout: PropTypes.func.isRequired
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginLogoutContainer)

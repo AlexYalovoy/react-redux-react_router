@@ -47,7 +47,7 @@ const Profile = (props) => {
 };
 
 Profile.propTypes = {
-  profile: PropTypes.object
+  profile: PropTypes.object.isRequired
 }
 
 export default Profile;
